@@ -37,19 +37,28 @@ capability). We built the test to expose that effect and ran it at k=25.
 **It did not survive.** Opus was flawless — 12/12 migrations, zero trap sites touched,
 and it over-reached *less* than the cheaper tiers, not more. So we **retract the
 "over-capable is worse" framing.** What the same data cleanly supports is the routing
-claim above: not *worse*, but *wasted* — equal correctness, wildly unequal cost.
+claim above: not *worse*, but *wasted* — equal correctness, wildly unequal cost. Using a
+frontier model to apply a rename is a **crane dropped on a nail**: not wrong, just an
+enormous waste of tokens and dollars.
 
-The ~17/39 figure that motivated the original lead was a **monolith dropping nodes on a
-68-edit migration** — a *scale/attention* effect that argues for orchestration, **not** a
-model-tier effect (a single Opus call does these edits perfectly). It has been relocated
-to the instrument's findings and is no longer this claim's evidence.
+**The one place "worse" is real — and why it argues *for* the big model.** A big model
+*does* degrade on mechanical work in exactly one situation: when it is forced into a
+**monolith at breaking scale** — one session asked to make thousands of edits until the
+context breaks, compaction kicks in, and nodes get dropped. That is a *scale/attention*
+failure of the monolith, **not** a property of the model tier. It is the argument **for
+orchestration** — the big model as the brain that plans and coordinates a swarm — not an
+argument against the big model. This is the whole thesis: **big brain, dumb fast hands.**
+(The ~17/39 figure that motivated the original lead was exactly this monolith-at-scale
+effect; it lives with the orchestration findings in the instrument, not here.)
 
-## The rule this earns
+## The rule this earns — big brain, fast hands
 
-**Route by verified correctness, not token price — and not by capability either.** Pick
-the cheapest tier that clears the deterministic gate on the task class; spend the
-frontier premium only where a cheap tier *cannot* clear the gate. On mechanical work, it
-can — so don't.
+**The frontier model should *understand* and *coordinate* the change; the cheapest hands
+that clear the gate should *execute* it.** Route by verified correctness, not token price
+— and not by capability either. Pick the cheapest tier that clears the deterministic gate
+on the task class; spend the frontier premium on the *planning and coordination*, where it
+earns its keep, and never on the mechanical fan-out, where a cheap or local model clears
+the same gate. Improper model use — a crane on every nail — is what this guards against.
 
 ## Depends on
 
