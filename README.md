@@ -1,103 +1,70 @@
 # capability-isnt-free
 
-> **STATUS: PRE-REGISTERED, DATA PENDING.** The hypothesis and the full measurement
-> protocol are frozen below *before* the powered runs. This repo publishes the result
-> whichever way it lands — including a clean retraction if the effect fails to replicate.
+> **STATUS: CONFIRMED on one fixture (k=25); replication pending.** The lead was *changed
+> by the data* — see "What the data did to our hypothesis" below. We ran the test able to
+> falsify our own claim, and it did.
 
-> **Capability is not monotonic. Handed mechanical work, an *over-capable* model is
-> measurably *worse* — and a second review pass does not buy the correctness back. So
-> capability isn't free: you pay for it in errors, not just dollars. Route each task to
-> the cheapest hands that clear a deterministic gate — and decide *which* hands by
-> verified accounting, never by token price.**
+> **Capability above the task is wasted spend. On mechanical work, a cheap model and a
+> frontier model are *equally correct* — but the frontier model costs 3–15× more. Route
+> each task to the cheapest tier that clears a deterministic gate; capability you don't
+> need is a bill, not a benefit.**
 
-## The claim, and why it's falsifiable
+## The result (routing table, k=25 per tier)
 
-Most routing advice is a price list: cheap model for easy work, expensive for hard,
-pick by cost. The **motivating observation** — from a *single* run, not yet in the
-powered dataset — is that it breaks in **both** directions: a frontier monolith
-mis-handled a large share (~17 of 39) of the mechanical find-and-replace nodes on a
-trap-dense migration that a cheaper, properly-briefed orchestrated configuration got
-right; and the naive inverse ("it's mechanical, route it cheap") fails wherever the
-brain hasn't lowered the task to application. **That is one fixture, one run** — its
-exact tally is being consolidated from the raw stream (see Roadmap), and replicating it
-is precisely what the protocol below pre-registers. It is not published as a lead.
+An explicit mechanical migration — 12 real call-sites to change, 8 trap sites to leave
+alone — run at three tiers, scored by a deterministic oracle (no LLM judge):
 
-The claim is deliberately killable by two measured numbers:
+| tier | clean-run rate | required / 12 | trap violations | est. cost | cost / *clean* run |
+|------|:---:|:---:|:---:|:---:|:---:|
+| **Haiku**  | 0.92 | 11.04 | 0.64 | 1× | **1.09** |
+| **Sonnet** | 1.00 | 12.0 | 0.00 | 3× | 3.0 |
+| **Opus**   | 1.00 | 12.0 | 0.00 | 15× | 15.0 |
 
-1. **Retry break-even, per task class.** If (cheap-hands failure-rate × retry-cost)
-   exceeds frontier-first cost, routing cheap is *false* for that class.
-2. **The interpretation→application floor.** "Any decent model can do it" holds only
-   where the spec lowered the task to application. Where it can't, cheap hands fail.
-   That boundary is the honest limit, quantified — not hidden.
+Correctness is **statistically tied** (Opus − Haiku clean-rate +0.08, 95% CI [0, 0.20],
+p=0.49; Haiku is ~100% through a gate + one cheap retry). Cost is **1× / 3× / 15×**. The
+frontier tier buys a **14× bill for the same clean result.** Full method, CIs, and the
+honest wrinkles: **[eval/routing-table.md](eval/routing-table.md)**.
 
-## Why "data pending" is a feature, not a hedge
+## What the data did to our hypothesis (the integrity part)
 
-The motivating result currently rests on **one fixture, one run**. Promoting it to a
-published lead would be exactly the sin this program exists to reject. So the claim
-ships here as a **pre-registration**: the matrix, the k, the oracle, and the break-even
-formula are frozen below, and the result is appended when the runs complete. A
-hypothesis committed before its data is stronger evidence than one reverse-engineered
-from it.
+This repo shipped first as a **pre-registration** of a stronger claim: that an
+*over-capable model is measurably **worse*** at mechanical work (non-monotonic
+capability). We built the test to expose that effect and ran it at k=25.
 
-## The pre-registered protocol (frozen)
+**It did not survive.** Opus was flawless — 12/12 migrations, zero trap sites touched,
+and it over-reached *less* than the cheaper tiers, not more. So we **retract the
+"over-capable is worse" framing.** What the same data cleanly supports is the routing
+claim above: not *worse*, but *wasted* — equal correctness, wildly unequal cost.
 
-**The crossed routing table** — node class × model lane, each cell run to power.
+The ~17/39 figure that motivated the original lead was a **monolith dropping nodes on a
+68-edit migration** — a *scale/attention* effect that argues for orchestration, **not** a
+model-tier effect (a single Opus call does these edits perfectly). It has been relocated
+to the instrument's findings and is no longer this claim's evidence.
 
-|            | haiku | sonnet | opus |
-|------------|:-----:|:------:|:----:|
-| **MUNDANE** (mechanical / diffable) | cell | cell | cell |
-| **non-MUNDANE** (generative / judgment) | cell | cell | cell |
+## The rule this earns
 
-Each cell reports four numbers: **success @ tier**, **cheapest tier clearing the bar**,
-**Δcost vs frontier-first**, **retry break-even** (the falsifier).
-
-- **Replication (load-bearing):** the MUNDANE-worse effect must appear as a comparable
-  *rate* on **two independently-authored** trap-dense fixtures — the existing migration
-  plus a second (an API-signature migration with its own hidden oracle). One fixture
-  cannot carry the lead.
-- **Control:** the non-MUNDANE row must show the *opposite* ordering (capability helps),
-  or the word "non-monotonic" is unearned.
-- **Counterexample (required):** ≥1 cell where naive token accounting says "route cheap"
-  but verified break-even says "don't." This is what makes *verified* accounting a real
-  distinction, not a slogan.
-- **Power:** pilot at k=3–5 to confirm effect direction (kill-early on the null), then
-  k=25 on decisive cells. Bootstrap CIs; Mann–Whitney; a pre-registered dethronement
-  trigger carried from the program's prior rounds.
-- **Reproducibility of shape:** re-run the matrix on one alternate lineup — the exact
-  table decays each model generation; the *procedure* is the citable artifact.
-
-## Supporting evidence already in hand (cited, pinned)
-
-The adjacent, *already-measured* results that make this claim plausible live in the
-instrument's white paper, cited at a pinned commit so they can't drift under this claim:
-
-- **Effort is mostly a tax, and the worker floor** — a stronger orchestrator at low/high
-  effort held correctness while max effort mostly bought cost; worker lanes hold far
-  below their labels on well-specified briefs. [swarmsmith FINDINGS.md §4.3–4.4 @ 59d9c2a](https://github.com/NovemberFalls/swarmsmith/blob/59d9c2a68ff0fb9c63df5b88533acdb37bfde989/FINDINGS.md).
-- **The apply-tier — why a deterministic diff removes the worker model from mechanical
-  work entirely** — [§4.7](https://github.com/NovemberFalls/swarmsmith/blob/59d9c2a68ff0fb9c63df5b88533acdb37bfde989/FINDINGS.md).
-
-> **Note on the ~17/39 motivating figure:** it is a real single run from the reframe
-> work, not yet reconciled into FINDINGS.md. Consolidating its provenance (raw stream →
-> FINDINGS) and then replicating it at k is the first roadmap item — the number is
-> treated as a hypothesis to test, never as an established result.
-
-## Roadmap
-
-1. **Consolidate the ~17/39 provenance** — recover the exact tally from the raw run
-   stream and reconcile it into swarmsmith FINDINGS.md, so the motivating figure is
-   citable before it is tested.
-2. Build the second MUNDANE fixture (an API-signature migration) with a hidden oracle
-   and a pre-registered trap map.
-3. Pilot the routing table at k=3–5 (kill-early on the null), then k=25 on decisive cells.
-4. Run the counterexample cell and the alt-lineup shape-reproduction.
-5. Append results here — whichever way they land.
+**Route by verified correctness, not token price — and not by capability either.** Pick
+the cheapest tier that clears the deterministic gate on the task class; spend the
+frontier premium only where a cheap tier *cannot* clear the gate. On mechanical work, it
+can — so don't.
 
 ## Depends on
 
-The verification half of this claim — "route by *verified* accounting" — is only
-meaningful because the gate is deterministic. That's the companion study:
+The whole rule rests on the gate being real. "Clears a deterministic gate" only means
+something because an LLM judge is theater — the companion, powered result:
 **[gate-on-the-fact](https://github.com/NovemberFalls/gate-on-the-fact)**.
+
+## Roadmap
+
+1. **Replicate** on a second independently-authored mechanical fixture (a config-key
+   rename) at k=25 — kill the "one fixture" attack.
+2. **Add the local tiers** (30B / 27B / gpt-oss on vLLM) — shared with
+   [cheapest-hands](https://github.com/NovemberFalls/cheapest-hands); does a *local* model
+   also clear the gate, making the cost gap ~∞?
+3. **Metered cost + formal retry break-even** — replace the price-ratio estimate with
+   per-token accounting (can only widen the gap at tied correctness).
+4. Test the **scale/architecture** claim (monolith vs orchestrated on a large migration)
+   separately — that is where the ~17/39 actually lives.
 
 ## Part of a program
 
