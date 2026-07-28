@@ -28,18 +28,18 @@ $0 marginal, metered). So the correctness is flat from a free local model up to 
 cost runs **~$0 → 1× → 3× → 15×**. The frontier tier buys a **15× bill for a result a
 local model already delivers.** Full method, CIs, and the honest scope: **[eval/routing-table.md](eval/routing-table.md)**.
 
-## What the data did to our hypothesis (the integrity part)
+## Not worse — wasted (what the test settled)
 
-This repo shipped first as a **pre-registration** of a stronger claim: that an
-*over-capable model is measurably **worse*** at mechanical work (non-monotonic
-capability). We built the test to expose that effect and ran it at k=25.
+The thesis was always about **waste**, never quality: a bigger model on mechanical work
+is a crane dropped on a nail — obviously overkill, obviously more expensive. To be
+rigorous, this repo pre-registered the *strongest skeptical form* of the question — could
+a bigger model be not just wasteful but actually **worse**? — so the answer would count
+either way.
 
-**It did not survive.** Opus was flawless — 12/12 migrations, zero trap sites touched,
-and it over-reached *less* than the cheaper tiers, not more. So we **retract the
-"over-capable is worse" framing.** What the same data cleanly supports is the routing
-claim above: not *worse*, but *wasted* — equal correctness, wildly unequal cost. Using a
-frontier model to apply a rename is a **crane dropped on a nail**: not wrong, just an
-enormous waste of tokens and dollars.
+**It is not worse.** Opus was flawless — 12/12 migrations, zero trap sites touched, and it
+over-reached *less* than the cheaper tiers, not more. So the data lands exactly on the
+claim we started with: **not worse, wasted.** Equal correctness, wildly unequal cost — a
+frontier model applying a rename is worse for your *wallet*, not your *code*.
 
 **The one place "worse" is real — and why it argues *for* the big model.** A big model
 *does* degrade on mechanical work in exactly one situation: when it is forced into a

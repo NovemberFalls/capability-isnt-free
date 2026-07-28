@@ -1,10 +1,11 @@
 # The routing table — capability above the task is wasted, not better
 
-This study set out to test a strong claim: that an **over-capable model is measurably
-*worse*** at trap-dense mechanical work. We built the test to be able to prove that.
-**It didn't.** What the data actually shows is narrower and still worth publishing:
-across model tiers, correctness on a mechanical migration is **statistically tied**,
-while cost runs **1× → 3× → 15×**. Capability above the task isn't worse — it's *wasted*.
+The claim was always about **waste**, not quality — a bigger model on mechanical work is
+a crane on a nail. To be rigorous we tested the *strongest skeptical form*: could an
+over-capable model be not just wasteful but measurably **worse**? **It is not.** Across
+model tiers, correctness on a mechanical migration is **statistically tied**, while cost
+runs **1× → 3× → 15×**. Capability above the task isn't worse — it's *wasted*: worse for
+the wallet, not the work.
 
 ## Design (pre-registered before runs)
 
@@ -53,10 +54,10 @@ while cost runs **1× → 3× → 15×**. Capability above the task isn't worse 
 
 ## What we found — and what we explicitly did NOT
 
-- **NOT found: capability is non-monotonic / over-capable is worse.** Opus was flawless —
-  12/12, zero traps touched, zero over-reach. The weakest tier was the (marginally, not
-  significantly) worse one. We looked for the effect with a test built to expose it, at
-  k=25, and it is not there on this task. We retract that framing.
+- **NOT found: over-capable is *worse*.** Opus was flawless — 12/12, zero traps touched,
+  zero over-reach. The weakest tier was the (marginally, not significantly) worse one. We
+  tested the strongest skeptical form of the question and the answer is no — a bigger
+  model is not worse at the work, only more expensive for it.
 - **Found: capability above the task is wasted spend.** Correctness is statistically
   indistinguishable across tiers (Haiku 92% raw, ~100% through a gate + one cheap retry),
   while cost is **1× / 3× / 15×**. The cheapest tier that clears the deterministic gate is
