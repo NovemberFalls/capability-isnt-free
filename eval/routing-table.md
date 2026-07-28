@@ -108,10 +108,9 @@ they can only *widen* a 14× cost gap at tied correctness, not close it.
 
 ## Honest limits
 
-- **One fixture, one task family (call-site migration), API tiers only.** A second,
-  independently-authored fixture (a config-key rename) and the local vLLM tiers
-  ([cheapest-hands](https://github.com/NovemberFalls/cheapest-hands)) are the pre-committed
-  replication. This is confirmed on one fixture at k=25, labeled as such.
+- **Two mechanical fixtures (call-site migration + config-key rename), API tiers + a
+  local 30B and gpt-oss-20b; single grader.** Confirmed at k=25 on both fixtures. Not yet
+  extended beyond call-site/rename-style migrations or to non-Anthropic *cloud* models.
 - Deterministic line-presence scoring penalizes reformatting — intentionally, since the
   rule forbids it, so reformatting counts as the over-reach it is. Normalization handles
   whitespace and quote-style so only real content changes score.

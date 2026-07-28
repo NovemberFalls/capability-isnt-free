@@ -61,9 +61,9 @@ something because an LLM judge is theater — the companion, powered result:
 
 1. ~~Replicate on a second independently-authored fixture~~ — **DONE** (config-key rename,
    k=25): same pattern, local 30B perfect again. See [eval/routing-table.md](eval/routing-table.md).
-2. **Add the local tiers** (30B / 27B / gpt-oss on vLLM) — shared with
-   [cheapest-hands](https://github.com/NovemberFalls/cheapest-hands); does a *local* model
-   also clear the gate, making the cost gap ~∞?
+2. ~~Add the local tiers~~ — **DONE for 30B + gpt-oss** (both clear the gate on both
+   fixtures; the free 30B ties Opus, gpt-oss ~3–10× slower — reasoning overhead). The 27B
+   remains. See [cheapest-hands](https://github.com/NovemberFalls/cheapest-hands).
 3. **Metered cost + formal retry break-even** — replace the price-ratio estimate with
    per-token accounting (can only widen the gap at tied correctness).
 4. Test the **scale/architecture** claim (monolith vs orchestrated on a large migration)
