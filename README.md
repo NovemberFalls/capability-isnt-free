@@ -1,8 +1,8 @@
 # capability-isnt-free
 
-> **STATUS: CONFIRMED on one fixture (k=25); replication pending.** The lead was *changed
-> by the data* — see "What the data did to our hypothesis" below. We ran the test able to
-> falsify our own claim, and it did.
+> **STATUS: CONFIRMED — replicated across two independently-authored fixtures (k=25 each,
+> 3 cloud tiers + a local 30B).** The lead was *changed by the data* — see "What the data
+> did to our hypothesis" below. We ran the test able to falsify our own claim, and it did.
 
 > **Capability above the task is wasted spend. On mechanical work, a cheap model and a
 > frontier model are *equally correct* — but the frontier model costs 3–15× more. Route
@@ -59,8 +59,8 @@ something because an LLM judge is theater — the companion, powered result:
 
 ## Roadmap
 
-1. **Replicate** on a second independently-authored mechanical fixture (a config-key
-   rename) at k=25 — kill the "one fixture" attack.
+1. ~~Replicate on a second independently-authored fixture~~ — **DONE** (config-key rename,
+   k=25): same pattern, local 30B perfect again. See [eval/routing-table.md](eval/routing-table.md).
 2. **Add the local tiers** (30B / 27B / gpt-oss on vLLM) — shared with
    [cheapest-hands](https://github.com/NovemberFalls/cheapest-hands); does a *local* model
    also clear the gate, making the cost gap ~∞?

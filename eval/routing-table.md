@@ -66,6 +66,26 @@ while cost runs **1× → 3× → 15×**. Capability above the task isn't worse 
   break correctness), but it means "more capable = more disciplined" isn't clean either.
   There is no monotonic story in over-reach; there is a clean one in cost-for-correctness.
 
+## Replication — fixture M2 (config-key rename), k=25
+
+The "one fixture" attack is answered: an **independently-authored second fixture** — a
+`cfg["timeout"]` → `cfg["timeout_ms"]` rename (12 real accesses, 8 traps: similar keys,
+a comment, a string, an already-migrated access, a like-named function/variable) —
+reproduces the pattern exactly.
+
+| tier | clean-run rate | required / 12 | trap violations | cost |
+|------|:---:|:---:|:---:|:---:|
+| **Qwen3-Coder-30B — local vLLM** | **1.00** | 12.0 | 0.00 | ~$0 |
+| **Haiku**  | 0.96 | 11.52 | 0.32 | 1× |
+| **Sonnet** | 0.96 | 11.52 | 0.32 | 3× |
+| **Opus**   | 1.00 | 12.0 | 0.00 | 15× |
+
+Opus − Haiku clean-rate **+0.04, 95% CI [0, 0.12], p=1.0** (not significant); Opus
+over-reached least again (−0.76, p=0.001). **Same story on a second task:** correctness is
+flat from a **free local 30B (perfect, both fixtures)** through Opus, while cost runs ~$0
+→ 1× → 3× → 15×. Two fixtures, one conclusion — capability above the task is wasted, not
+worse, and a local model clears the gate.
+
 ## The ~17/39 belongs elsewhere
 
 Paper B originally led with a monolith dropping ~17 of 39 mechanical nodes on a 68-edit
