@@ -84,7 +84,9 @@ Opus − Haiku clean-rate **+0.04, 95% CI [0, 0.12], p=1.0** (not significant); 
 over-reached least again (−0.76, p=0.001). **Same story on a second task:** correctness is
 flat from a **free local 30B (perfect, both fixtures)** through Opus, while cost runs ~$0
 → 1× → 3× → 15×. Two fixtures, one conclusion — capability above the task is wasted, not
-worse, and a local model clears the gate.
+worse, and a local model clears the gate. (A second local model, the *reasoning* model
+gpt-oss-20b, also clears the gate but runs ~3–10× slower — reasoning is wasted latency on
+mechanical work; see [cheapest-hands](https://github.com/NovemberFalls/cheapest-hands).)
 
 ## The ~17/39 belongs elsewhere
 
