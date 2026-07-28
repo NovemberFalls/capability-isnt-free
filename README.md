@@ -14,16 +14,19 @@
 An explicit mechanical migration — 12 real call-sites to change, 8 trap sites to leave
 alone — run at three tiers, scored by a deterministic oracle (no LLM judge):
 
-| tier | clean-run rate | required / 12 | trap violations | est. cost | cost / *clean* run |
+| tier | clean-run rate | required / 12 | trap violations | cost | cost / *clean* run |
 |------|:---:|:---:|:---:|:---:|:---:|
-| **Haiku**  | 0.92 | 11.04 | 0.64 | 1× | **1.09** |
+| **Qwen3-Coder-30B — local vLLM** | **1.00** | 12.0 | 0.00 | **~$0** | **~0** |
+| **Haiku**  | 0.92 | 11.04 | 0.64 | 1× | 1.09 |
 | **Sonnet** | 1.00 | 12.0 | 0.00 | 3× | 3.0 |
 | **Opus**   | 1.00 | 12.0 | 0.00 | 15× | 15.0 |
 
-Correctness is **statistically tied** (Opus − Haiku clean-rate +0.08, 95% CI [0, 0.20],
-p=0.49; Haiku is ~100% through a gate + one cheap retry). Cost is **1× / 3× / 15×**. The
-frontier tier buys a **14× bill for the same clean result.** Full method, CIs, and the
-honest wrinkles: **[eval/routing-table.md](eval/routing-table.md)**.
+Correctness is **statistically tied** across the cloud tiers (Opus − Haiku clean-rate
++0.08, 95% CI [0, 0.20], p=0.49; Haiku is ~100% through a gate + one cheap retry) — and a
+**free local 30B on one GPU clears the gate perfectly** (12/12, zero traps, all 25 runs,
+$0 marginal, metered). So the correctness is flat from a free local model up to Opus while
+cost runs **~$0 → 1× → 3× → 15×**. The frontier tier buys a **15× bill for a result a
+local model already delivers.** Full method, CIs, and the honest scope: **[eval/routing-table.md](eval/routing-table.md)**.
 
 ## What the data did to our hypothesis (the integrity part)
 

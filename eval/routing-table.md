@@ -26,15 +26,30 @@ while cost runs **1× → 3× → 15×**. Capability above the task isn't worse 
 
 ## Results (k=25 per tier)
 
-| tier | clean-run rate | required / 12 | trap violations | over-reach | est. rel. cost | est. cost / clean run |
+| tier | clean-run rate | required / 12 | trap violations | over-reach | cost | cost / clean run |
 |------|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Haiku**  | 0.92 | 11.04 | 0.64 | 0.72 | 1× | **1.09** |
+| **Qwen3-Coder-30B — local vLLM** | **1.00** | 12.0 | 0.00 | 0.00 | **~$0** (one GPU) | **~0** |
+| **Haiku**  | 0.92 | 11.04 | 0.64 | 0.72 | 1× | 1.09 |
 | **Sonnet** | 1.00 | 12.0 | 0.00 | 1.60 | 3× | 3.0 |
 | **Opus**   | 1.00 | 12.0 | 0.00 | 0.00 | 15× | 15.0 |
 
 - **Opus − Haiku clean-rate: +0.08, 95% CI [0, 0.20], p=0.49** — not significant.
 - **Opus − Haiku over-reach: −0.72, 95% CI [−1.08, −0.36], p=0.001** — Opus over-reached
   the *least*, the opposite of the "frontier over-helps" hypothesis.
+- **The local 30B is the punchline.** A quantized 30B on a single GPU cleared the gate
+  **perfectly on all 25 runs** (12/12, zero traps, zero over-reach) at ~2.6 s/run and **$0
+  marginal cost** — matching Opus and *beating* Haiku. Metered directly from vLLM (312
+  output tokens/run), not estimated. The frontier tier costs 15× a cloud floor and ∞× a
+  free local model to deliver **the same clean result**. This is "capability above the
+  task is wasted spend" in its strongest form.
+- **Scope honesty:** the 30B wins *here* because the task is fully specified — a clean
+  mechanical migration, the regime the thesis predicts local clears. On trap-dense briefs
+  that still require interpretation the same model drops (59/68, FINDINGS §4.5). The claim
+  is "cheap/local clears the gate on **application**," not "on everything."
+- Method note: API tiers ran through the Claude Code agent harness; the local tier ran
+  through the raw vLLM OpenAI endpoint (temp 0.7). Same fixture, same rule, same
+  deterministic scorer — the correctness comparison is apples-to-apples; the dispatch path
+  differs and is disclosed.
 
 ## What we found — and what we explicitly did NOT
 
